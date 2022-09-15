@@ -7,6 +7,7 @@ from .settings import *
 class Ball:
     def __init__(self):
         self.standard_ball = True
+        self.surf = pygame.display.get_surface()
         self.shaken = False
         self.display = "lens"
         self.answer = None
@@ -24,19 +25,19 @@ class Ball:
     def roll(self):
         return (randint(0, 3), randint(0,4))
 
-    def draw(self, screen):
+    def draw(self):
         centerX = WIDTH//2
         centerY = HEIGHT//2
         if self.standard_ball:
             # the standard ball will have the 8 written on it
             offset = -50
             textoffset = 27
-            pygame.draw.circle(screen, "#1a1a1a", (centerX, centerY), 175)
-            pygame.draw.circle(screen, "#f2f2f2", (centerX+offset, centerY+offset), 80)
-            pygame.draw.circle(screen, "#0d0d0d", (centerX+offset-18, centerY+offset+textoffset), 30, 7)
-            pygame.draw.circle(screen, "#0d0d0d", (centerX+offset-8, centerY+offset-textoffset), 30, 7)
+            pygame.draw.circle(self.surf, "#1a1a1a", (centerX, centerY), 175)
+            pygame.draw.circle(self.surf, "#f2f2f2", (centerX+offset, centerY+offset), 80)
+            pygame.draw.circle(self.surf, "#0d0d0d", (centerX+offset-18, centerY+offset+textoffset), 30, 7)
+            pygame.draw.circle(self.surf, "#0d0d0d", (centerX+offset-8, centerY+offset-textoffset), 30, 7)
 
-    def readout(self, screen):
+    def readout(self):
         if self.shaken:
             print(self.answer)
             pass
@@ -50,8 +51,8 @@ class Ball:
         self.answer = self.results[self.random_answer[0]][self.random_answer[1]]
         self.cooldown = self.max_cooldown
 
-    def update(self, screen):
+    def update(self):
         if self.cooldown > 0:
             self.cooldown -= 1
-        self.draw(screen)
-        self.readout(screen)
+        self.draw()
+        self.readout()

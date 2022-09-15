@@ -6,10 +6,9 @@ from .settings import *
 from .ball import Ball
 
 class Level:
-    def __init__(self, screen):
+    def __init__(self):
         self.paused = False
         self.ball = Ball()
-        self.screen = screen
 
     def quit(self):
         pygame.quit()
@@ -26,4 +25,4 @@ class Level:
                 if event.key == pygame.K_s:
                     if self.ball.cooldown <= 0:
                         self.ball.shake()
-        self.ball.update(self.screen)
+        self.ball.update()
