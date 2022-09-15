@@ -23,35 +23,40 @@ class Ball:
             ["Don't count on it", "My reply is NO", "My sources say no", "outlook not so good", "very doubtful"]
             ]
 
+        # cool downs
         self.cooldown = 0
         self.max_cooldown = 50
+
+        # positioning
+        self.x = WIDTH//2
+        self.y = HEIGHT//2
 
     def roll(self):
         return (randint(0, 3), randint(0,4))
 
     def draw(self):
-        centerX = WIDTH//2
         centerY = HEIGHT//2
         if self.standard_ball:
             # the standard ball will have the 8 written on it
             offset = -50
             textoffset = 27
-            pygame.draw.circle(self.surf, "#1a1a1a", (centerX, centerY), 175)
-            pygame.draw.circle(self.surf, "#f2f2f2", (centerX+offset, centerY+offset), 80)
-            pygame.draw.circle(self.surf, "#0d0d0d", (centerX+offset-18, centerY+offset+textoffset), 30, 7)
-            pygame.draw.circle(self.surf, "#0d0d0d", (centerX+offset-8, centerY+offset-textoffset), 30, 7)
+            pygame.draw.circle(self.surf, "#1a1a1a", (self.x, centerY), 175)
+            pygame.draw.circle(self.surf, "#f2f2f2", (self.x+offset, centerY+offset), 80)
+            pygame.draw.circle(self.surf, "#0d0d0d", (self.x+offset-18, centerY+offset+textoffset), 30, 7)
+            pygame.draw.circle(self.surf, "#0d0d0d", (self.x+offset-8, centerY+offset-textoffset), 30, 7)
 
     def readout(self):
         self.surf.blit(self.text, self.text_rect)
 
     def shake(self):
+        text_height_offset = 250
         self.random_answer = self.roll()
         self.shaken = True
         self.answer = self.results[self.random_answer[0]][self.random_answer[1]]
         self.cooldown = self.max_cooldown
         self.text = self.font.render(self.answer, True, "#000000", COLOR_BACKGROUND)
         self.text_rect = self.text.get_rect()
-        self.text_rect.center = (WIDTH//2, HEIGHT//2+250)
+        self.text_rect.center = (self.x, self.y+text_height_offset)
 
     def update(self):
         if self.cooldown > 0:
