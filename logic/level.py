@@ -8,6 +8,7 @@ from .ui import Ui
 
 class Level:
     def __init__(self):
+        self.light_mode = LIGHT_MODE
         self.ball = Ball()
         self.overlay = Ui(self)
 

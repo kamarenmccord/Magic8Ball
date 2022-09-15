@@ -11,6 +11,8 @@ class Ball:
         self.score = 0
         self.standard_ball = True
         self.shaken = False
+        self.past_guess = []
+        self.background_color = COLOR_BACKGROUND if LIGHT_MODE else COLOR_BACKGROUND_DARK
 
         # cool downs
         self.cooldown = 0
@@ -27,15 +29,10 @@ class Ball:
         self.answer = "Press 'S' to shake"
         self.answer_index = [0,0]
 
-        self.text = self.font.render(self.answer, True, "#000000", COLOR_BACKGROUND)
+        self.text = self.font.render(self.answer, True, TEXT_COLOR, self.background_color)
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (WIDTH//2, HEIGHT//2+250)
-        self.results = [
-            ["It is Certain", "It is decidedly so", "without a doubt", "yes definitely", "you may rely on it"],
-            ["As I see it, yes", "most likely", "outlook good", "yes", "signs point to yes"],
-            ["Reply hazy, try again", "Ask again later", "better not tell you now", "cannot predict now", "concentrate and ask again"],
-            ["Don't count on it", "My reply is NO", "My sources say no", "outlook not so good", "very doubtful"]
-            ]
+        self.results = RESULTS
 
     def roll(self):
         return (randint(0, 3), randint(0,4))
@@ -61,7 +58,8 @@ class Ball:
         text_height_offset = 250
         self.answer_index = self.roll()
         self.answer = self.results[self.answer_index[0]][self.answer_index[1]]
-        self.text = self.font.render(self.answer, True, "#000000", COLOR_BACKGROUND)
+        self.past_guess.append(self.answer)
+        self.text = self.font.render(self.answer, True, TEXT_COLOR, self.background_color)
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.x, self.y+text_height_offset)
 
