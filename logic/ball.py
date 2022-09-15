@@ -8,9 +8,13 @@ class Ball:
     def __init__(self):
         self.standard_ball = True
         self.surf = pygame.display.get_surface()
+        self.font = pygame.font.Font("freesansbold.ttf", 32)
+        self.answer = "Press 'S' to shake"
+        self.text = self.font.render(self.answer, True, "#000000", COLOR_BACKGROUND)
+        self.text_rect = self.text.get_rect()
+        self.text_rect.center = (WIDTH//2, HEIGHT//2+250)
         self.shaken = False
         self.display = "lens"
-        self.answer = None
         self.random_answer = [0,0]
         self.results = [
             ["It is Certain", "It is decidedly so", "without a doubt", "yes definitely", "you may rely on it"],
@@ -38,18 +42,16 @@ class Ball:
             pygame.draw.circle(self.surf, "#0d0d0d", (centerX+offset-8, centerY+offset-textoffset), 30, 7)
 
     def readout(self):
-        if self.shaken:
-            print(self.answer)
-            pass
-        else:
-            # advise to shake the ball
-            pass
+        self.surf.blit(self.text, self.text_rect)
 
     def shake(self):
         self.random_answer = self.roll()
         self.shaken = True
         self.answer = self.results[self.random_answer[0]][self.random_answer[1]]
         self.cooldown = self.max_cooldown
+        self.text = self.font.render(self.answer, True, "#000000", COLOR_BACKGROUND)
+        self.text_rect = self.text.get_rect()
+        self.text_rect.center = (WIDTH//2, HEIGHT//2+250)
 
     def update(self):
         if self.cooldown > 0:

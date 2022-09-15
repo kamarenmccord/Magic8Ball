@@ -15,7 +15,7 @@ class Game:
 
     def run(self):
         while True:
-            self.screen.fill("#4c72fc")
+            self.screen.fill(COLOR_BACKGROUND)
             self.level.update()
             pygame.display.update()
             self.clock.tick(FPS)
