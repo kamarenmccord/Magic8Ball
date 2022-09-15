@@ -11,7 +11,7 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()
-        self.level = Level()
+        self.level = Level(self.screen)
         pygame.display.set_caption(CUSTOM_TITLE)
 
 
