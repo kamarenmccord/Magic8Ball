@@ -14,6 +14,10 @@ class Level:
         pygame.quit()
         sys.exit()
 
+    def shake_ball(self):
+        if self.ball.cooldown <= 0:
+            self.ball.shake()
+
     def update(self):
         # check for updates
         for event in pygame.event.get():
@@ -23,6 +27,7 @@ class Level:
                 if event.key == pygame.K_q:
                     self.quit()
                 if event.key == pygame.K_s:
-                    if self.ball.cooldown <= 0:
-                        self.ball.shake()
+                    self.shake_ball()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.shake_ball()
         self.ball.update()
