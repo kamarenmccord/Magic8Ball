@@ -12,6 +12,7 @@ LIGHT_MODE = 1
 TEXT_COLOR = "#000000" if LIGHT_MODE else "#FFFFFF"
 COLOR_BACKGROUND = "#80bfff" if LIGHT_MODE else "#7733ff"
 BAR_COLOR = "#1a8cff" if LIGHT_MODE else "#8080ff"
+BLACK = "#000000"
 
 # ball options
 RESULTS = [

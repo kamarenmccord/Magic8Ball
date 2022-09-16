@@ -26,7 +26,7 @@ class Ball:
         # boundries
         self.shaken = False
         self.shaking = False
-        shake_offset = 40
+        shake_offset = 35
         self.Y_LOWER = self.y-shake_offset
         self.Y_UPPER = self.y+shake_offset
         self.shake_count = 0
@@ -60,7 +60,7 @@ class Ball:
             pygame.draw.circle(self.surf, "#f2f2f2", (self.x+offset, self.y+offset), 80)
             pygame.draw.circle(self.surf, "#0d0d0d", (self.x+offset-18, self.y+offset+textoffset), 30, 7)
             pygame.draw.circle(self.surf, "#0d0d0d", (self.x+offset-8, self.y+offset-textoffset), 30, 7)
-        
+
         self.surf.blit(self.text, self.text_rect)
 
     def shake(self):
@@ -107,6 +107,9 @@ class Ball:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_s]:
                 self.do_action()
+
+    def get_history(self):
+        return self.past_guess
 
     def update(self):
         if self.cooldown > 0:
