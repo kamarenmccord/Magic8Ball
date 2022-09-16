@@ -9,8 +9,7 @@ class Ui:
         self.plays = observer.ball.get_plays
         self.pos = (0,0)
         self.maxPos = (WIDTH, HEIGHT)
-        self.light_mode = LIGHT_MODE
-        self.bar_color = BAR_COLOR if self.light_mode else BAR_COLOR_DARK
+        self.bar_color = BAR_COLOR
 
         self.corner_top_right = (self.maxPos[0]-150, 0)
         self.corner_bottom_left = (0, self.maxPos[1]-150)

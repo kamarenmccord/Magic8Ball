@@ -5,16 +5,13 @@ HEIGHT = 720
 FPS = 60
 CUSTOM_TITLE = "Magic 8 Ball"
 
-LIGHT_MODE = 0
+# True of False boolean, not indexing
+LIGHT_MODE = 1
 
 # this is where I would put my color schema, if i had one
 TEXT_COLOR = "#000000" if LIGHT_MODE else "#FFFFFF"
-COLOR_BACKGROUND = "#80bfff"
-BAR_COLOR = "#1a8cff"
-
-#dark themes
-COLOR_BACKGROUND_DARK = "#7733ff"
-BAR_COLOR_DARK = "#8080ff"
+COLOR_BACKGROUND = "#80bfff" if LIGHT_MODE else "#7733ff"
+BAR_COLOR = "#1a8cff" if LIGHT_MODE else "#8080ff"
 
 # ball options
 RESULTS = [

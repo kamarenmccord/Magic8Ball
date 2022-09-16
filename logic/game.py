@@ -8,7 +8,7 @@ from .level import Level
 class Game:
     def __init__(self):
         pygame.init()
-        self.background_color = COLOR_BACKGROUND if LIGHT_MODE else COLOR_BACKGROUND_DARK
+        self.background_color = COLOR_BACKGROUND
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()
         self.level = Level()

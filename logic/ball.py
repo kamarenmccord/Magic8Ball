@@ -12,7 +12,7 @@ class Ball:
         self.standard_ball = True
         self.shaken = False
         self.past_guess = []
-        self.background_color = COLOR_BACKGROUND if LIGHT_MODE else COLOR_BACKGROUND_DARK
+        self.background_color = COLOR_BACKGROUND
 
         # cool downs
         self.cooldown = 0
