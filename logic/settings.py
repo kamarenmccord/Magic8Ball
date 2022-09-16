@@ -1,5 +1,5 @@
 """ global settings file """
-DEBUG = True
+DEBUG = False
 WIDTH = 1280
 HEIGHT = 720
 FPS = 60
