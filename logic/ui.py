@@ -37,14 +37,15 @@ class Ui:
         # pause game? check only for input to hide?
 
         if self.show_guesses:
-            if self.ball.past_guess:
-                pygame.draw.rect(self.surf, BAR_COLOR, self.right_bar)
-                pygame.draw.rect(self.surf, BLACK, self.right_bar_border)
-                for index, guess in enumerate(self.ball.past_guess, 1):
-                    text = self.font.render(guess, True, TEXT_COLOR, BAR_COLOR)
-                    text_rect = text.get_rect()
-                    text_rect.center = (WIDTH-180, HEIGHT-60-(index*50))
-                    self.surf.blit(text, text_rect)
+            if self.plays() > 1:
+                if self.ball.past_guess:
+                    pygame.draw.rect(self.surf, BAR_COLOR, self.right_bar)
+                    pygame.draw.rect(self.surf, BLACK, self.right_bar_border)
+                    for index, guess in enumerate(self.ball.past_guess, 1):
+                        text = self.font.render(guess, True, TEXT_COLOR, BAR_COLOR)
+                        text_rect = text.get_rect()
+                        text_rect.center = (WIDTH-180, HEIGHT-60-(index*50))
+                        self.surf.blit(text, text_rect)
 
         if self.plays() > 0:
             self.text = self.font.render(str(f'Shakes: {self.plays()}'), True, TEXT_COLOR, BAR_COLOR)
