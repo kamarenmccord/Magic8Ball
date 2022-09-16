@@ -10,7 +10,6 @@ class Ball:
         # stats
         self.score = 0
         self.standard_ball = True
-        self.shaken = False
         self.past_guess = []
         self.background_color = COLOR_BACKGROUND
 
@@ -21,6 +20,17 @@ class Ball:
         # positioning
         self.x = WIDTH//2
         self.y = HEIGHT//2
+        self.direction = -1  # Defualt direction is up
+        self.speed = 3
+
+        # boundries
+        self.shaken = False
+        self.shaking = False
+        shake_offset = 40
+        self.Y_LOWER = self.y-shake_offset
+        self.Y_UPPER = self.y+shake_offset
+        self.shake_count = 0  # 3 * complete cycles
+        self.shake_stop_count = 4*2
 
         #Ui
         self.surf = pygame.display.get_surface()
@@ -46,16 +56,16 @@ class Ball:
             # the standard ball will have the 8 written on it
             offset = -50
             textoffset = 27
-            pygame.draw.circle(self.surf, "#1a1a1a", (self.x, centerY), 175)
-            pygame.draw.circle(self.surf, "#f2f2f2", (self.x+offset, centerY+offset), 80)
-            pygame.draw.circle(self.surf, "#0d0d0d", (self.x+offset-18, centerY+offset+textoffset), 30, 7)
-            pygame.draw.circle(self.surf, "#0d0d0d", (self.x+offset-8, centerY+offset-textoffset), 30, 7)
-
-    def readout(self):
+            pygame.draw.circle(self.surf, "#1a1a1a", (self.x, self.y), 175)
+            pygame.draw.circle(self.surf, "#f2f2f2", (self.x+offset, self.y+offset), 80)
+            pygame.draw.circle(self.surf, "#0d0d0d", (self.x+offset-18, self.y+offset+textoffset), 30, 7)
+            pygame.draw.circle(self.surf, "#0d0d0d", (self.x+offset-8, self.y+offset-textoffset), 30, 7)
+        
         self.surf.blit(self.text, self.text_rect)
 
     def shake(self):
         text_height_offset = 250
+
         self.answer_index = self.roll()
         self.answer = self.results[self.answer_index[0]][self.answer_index[1]]
         self.past_guess.append(self.answer)
@@ -63,15 +73,33 @@ class Ball:
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.x, self.y+text_height_offset)
 
+    def move(self):
+        # modify the specific y Coordinate
+        self.y += self.speed * self.direction
+
+        # check for boundry and set direction
+        if self.direction < 0:
+            if self.y < self.Y_LOWER:
+                self.direction *= -1
+                self.shake_count += 1
+        else:
+            if self.y > self.Y_UPPER:
+                self.direction *= -1
+                self.shake_count += 1
+        if self.shake_count >= self.shake_stop_count:
+            self.shake_count = 0
+            self.shaking = False
+            self.shake()
+
     def do_action(self):
         # set stats
         self.cooldown = self.max_cooldown
         self.shaken = True
         self.score += 1
-        self.shake()
+        self.shaking = True
 
     def checkinput(self):
-        if self.cooldown <= 0:
+        if self.cooldown <= 0 and self.shaking == False:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_s]:
                 self.do_action()
@@ -79,6 +107,7 @@ class Ball:
     def update(self):
         if self.cooldown > 0:
             self.cooldown -= 1
+        if self.shaking == True:
+            self.move()
         self.draw()
-        self.readout()
         self.checkinput()

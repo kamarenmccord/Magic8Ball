@@ -7,6 +7,7 @@ from .settings import *
 class Ui:
     def __init__(self, observer):
         self.plays = observer.ball.get_plays
+        self.ball = observer.ball
         self.pos = (0,0)
         self.maxPos = (WIDTH, HEIGHT)
         self.bar_color = BAR_COLOR
@@ -22,8 +23,8 @@ class Ui:
         self.font = pygame.font.Font("freesansbold.ttf", 20)
 
     def draw(self):
-        pygame.draw.rect(self.surf, self.bar_color, self.top_bar)
-        pygame.draw.rect(self.surf, self.bar_color, self.bottom_bar)
+        pygame.draw.rect(self.surf, BAR_COLOR, self.top_bar)
+        pygame.draw.rect(self.surf, BAR_COLOR, self.bottom_bar)
 
         # right bar implementation
         # hidable right side "shrinks into right/slides out"
@@ -32,10 +33,16 @@ class Ui:
 
 
         if self.plays() > 0:
-            self.text = self.font.render(str(f'Shakes: {self.plays()}'), True, TEXT_COLOR, self.bar_color)
+            self.text = self.font.render(str(f'Shakes: {self.plays()}'), True, TEXT_COLOR, BAR_COLOR)
             self.text_rect = self.text.get_rect()
             self.text_rect.center = (70, 40)
             self.surf.blit(self.text, self.text_rect)
+
+        if DEBUG:
+            ball_text = self.font.render(str(f"move count: {self.ball.shake_count}"), True, TEXT_COLOR, BAR_COLOR)
+            ball_text_rect = ball_text.get_rect()
+            ball_text_rect.center = (70*4, 40)
+            self.surf.blit(ball_text, ball_text_rect)
 
     def update(self):
         self.draw()
