@@ -29,8 +29,8 @@ class Ball:
         shake_offset = 40
         self.Y_LOWER = self.y-shake_offset
         self.Y_UPPER = self.y+shake_offset
-        self.shake_count = 0  # 3 * complete cycles
-        self.shake_stop_count = 4*2
+        self.shake_count = 0
+        self.shake_stop_count = 3*3  # 3 * n-cycles
 
         #Ui
         self.surf = pygame.display.get_surface()
@@ -86,9 +86,13 @@ class Ball:
             if self.y > self.Y_UPPER:
                 self.direction *= -1
                 self.shake_count += 1
+        if self.direction < 0 and self.y == HEIGHT//2:
+            self.shake_count += 1
+
         if self.shake_count >= self.shake_stop_count:
             self.shake_count = 0
             self.shaking = False
+            # re-roll the answer var and set its respective stats
             self.shake()
 
     def do_action(self):
