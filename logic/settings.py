@@ -7,7 +7,7 @@ CUSTOM_TITLE = "Magic 8 Ball"
 LIGHT_MODE = 1
 
 # Dimensions
-BORDER_SIZE = 5
+BORDER_SIZE = 2
 WIDTH = 1280
 HEIGHT = 720
 
