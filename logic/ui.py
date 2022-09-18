@@ -14,7 +14,7 @@ class Ui:
         self.bar_color = BAR_COLOR
         self.show_guesses = True
         self.font = pygame.font.Font("freesansbold.ttf", 20)
-        self.font_large = pygame.font.Font("freesansbold.ttf", 15)
+        self.font_small = pygame.font.Font("freesansbold.ttf", 15)
 
         self.corner_top_right = (self.maxPos[0]-150, 0)
         self.corner_bottom_left = (0, self.maxPos[1]-150)
@@ -34,7 +34,7 @@ class Ui:
         box_y = self.bar_width+20
         self.exit_icon = pygame.Rect(box_x, box_y, box_size,box_size)
         self.exit_border = pygame.Rect(box_x, box_y, box_size, box_size)
-        self.box_text = self.font_large.render("X", True, WHITE, RED)
+        self.box_text = self.font_small.render("X", True, WHITE, RED)
         self.box_text_rect = self.box_text.get_rect()
         self.box_text_rect.topleft = (self.exit_icon.x+BORDER_SIZE+3, self.exit_icon.y+BORDER_SIZE+1)
 
