@@ -13,11 +13,14 @@ class Ui:
         self.maxPos = (WIDTH, HEIGHT)
         self.bar_color = BAR_COLOR
         self.show_guesses = True
+        self.font = pygame.font.Font("freesansbold.ttf", 20)
+        self.font_large = pygame.font.Font("freesansbold.ttf", 40)
 
         self.corner_top_right = (self.maxPos[0]-150, 0)
         self.corner_bottom_left = (0, self.maxPos[1]-150)
         self.surf = pygame.display.get_surface()
 
+        # Ui Bars
         self.bar_width = 80
         self.top_bar = pygame.Rect(0,0, self.maxPos[0], self.bar_width)
         self.bottom_bar = pygame.Rect(0, self.maxPos[1]-self.bar_width, self.maxPos[0], self.bar_width)
@@ -25,11 +28,25 @@ class Ui:
         self.right_bar = pygame.Rect((WIDTH-350, 0), (350, HEIGHT))
         self.right_bar_border = pygame.Rect((WIDTH-350, 0), (2,HEIGHT))
 
-        self.font = pygame.font.Font("freesansbold.ttf", 20)
+        # Exit box
+        box_size = 50
+        box_x = 30
+        box_y = self.bar_width+20
+        self.exit_icon = pygame.Rect(box_x, box_y, box_size,box_size)
+        self.exit_border = pygame.Rect(box_x, box_y, box_size, box_size)
+        self.box_text = self.font_large.render("X", True, WHITE, RED)
+        self.box_text_rect = self.box_text.get_rect()
+        self.box_text_rect.topleft = (self.exit_icon.x+BORDER_SIZE+5, self.exit_icon.y+BORDER_SIZE)
 
     def draw(self):
+        # underlay ui bars
         pygame.draw.rect(self.surf, BAR_COLOR, self.top_bar)
         pygame.draw.rect(self.surf, BAR_COLOR, self.bottom_bar)
+
+        # Exit Button
+        pygame.draw.rect(self.surf, RED, self.exit_icon)
+        pygame.draw.rect(self.surf, WHITE, self.exit_border, BORDER_SIZE)
+        self.surf.blit(self.box_text, self.box_text_rect)
 
         # right bar implementation
         # hidable right side "shrinks into right/slides out"

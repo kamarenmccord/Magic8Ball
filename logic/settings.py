@@ -1,18 +1,23 @@
 """ global settings file """
 DEBUG = False
-WIDTH = 1280
-HEIGHT = 720
 FPS = 60
 CUSTOM_TITLE = "Magic 8 Ball"
 
 # True of False boolean, not indexing
 LIGHT_MODE = 1
 
+# Dimensions
+BORDER_SIZE = 5
+WIDTH = 1280
+HEIGHT = 720
+
 # this is where I would put my color schema, if i had one
 TEXT_COLOR = "#000000" if LIGHT_MODE else "#FFFFFF"
 COLOR_BACKGROUND = "#80bfff" if LIGHT_MODE else "#7733ff"
 BAR_COLOR = "#1a8cff" if LIGHT_MODE else "#8080ff"
 BLACK = "#000000"
+RED = "#FF0000"
+WHITE = "#FFFFFF"
 
 # ball options
 RESULTS = [
